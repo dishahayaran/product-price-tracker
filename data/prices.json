@@ -1,5 +1,17 @@
 {
   "_comment": "This file is auto-updated by the GitHub Actions workflow. Do not edit manually.",
-  "lastUpdated": null,
-  "prices": {}
+  "lastUpdated": "2026-06-18T12:11:55.085Z",
+  "prices": {
+    "iphone-15-128gb": {
+      "productId": "iphone-15-128gb",
+      "productName": "Apple iPhone 15 (128GB) - Black",
+      "currentPrice": null,
+      "previousPrice": null,
+      "lowestPrice": null,
+      "lastChecked": null,
+      "lastError": "2026-06-18T12:11:55.084Z",
+      "lastErrorMessage": "page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.flipkart.com/apple-iphone-15-black-128-gb/p/itm6ac6485515ae4\", waiting until \"domcontentloaded\"\n",
+      "consecutiveFailures": 1
+    }
+  }
 }
