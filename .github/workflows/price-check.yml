@@ -1,0 +1,91 @@
+name: Flipkart Price Check
+
+# ─── Schedule ──────────────────────────────────────────────────────────────────
+# Runs at 03:30 UTC  = 09:00 IST
+#         15:30 UTC  = 21:00 IST
+# GitHub Actions uses UTC. IST = UTC + 5:30
+
+on:
+  schedule:
+    - cron: "30 3 * * *"   # 09:00 IST
+    - cron: "30 15 * * *"  # 21:00 IST
+
+  # Allow triggering manually from the GitHub Actions tab
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: "Enable debug logging (true/false)"
+        required: false
+        default: "false"
+
+# ─── Permissions ───────────────────────────────────────────────────────────────
+# Write permission is needed so the workflow can commit prices.json back
+permissions:
+  contents: write
+
+jobs:
+  check-prices:
+    name: Check Flipkart Prices
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      # ── 1. Checkout ────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Use a token that allows committing back (GITHUB_TOKEN works with contents:write)
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── 2. Setup Node.js ───────────────────────────────────────────────────
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      # ── 3. Install npm dependencies ────────────────────────────────────────
+      - name: Install dependencies
+        run: npm ci
+
+      # ── 4. Install Playwright's Chromium browser ───────────────────────────
+      # Only install Chromium (not Firefox or WebKit) to keep the step fast
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
+
+      # ── 5. Run the price checker ────────────────────────────────────────────
+      - name: Run price checker
+        env:
+          GMAIL_USER:     ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASS: ${{ secrets.GMAIL_APP_PASS }}
+          NOTIFY_EMAIL:   ${{ secrets.NOTIFY_EMAIL }}
+          DEBUG:          ${{ github.event.inputs.debug || 'false' }}
+        # ts-node runs TypeScript directly — no build step needed in CI
+        run: npx ts-node --project tsconfig.json src/index.ts
+
+      # ── 6. Commit updated prices.json ──────────────────────────────────────
+      # Only runs if the previous step succeeded or partially succeeded
+      - name: Commit updated prices.json
+        if: always()   # commit even if price check had partial failures
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Only commit if prices.json actually changed
+          if git diff --quiet data/prices.json; then
+            echo "prices.json unchanged — nothing to commit."
+          else
+            git add data/prices.json
+            git commit -m "chore: update prices [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+            git push
+            echo "prices.json committed and pushed."
+          fi
+
+      # ── 7. Upload prices.json as an artifact for debugging ─────────────────
+      - name: Upload prices snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prices-snapshot-${{ github.run_id }}
+          path: data/prices.json
+          retention-days: 7

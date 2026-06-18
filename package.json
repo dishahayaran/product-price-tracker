@@ -1,0 +1,26 @@
+{
+  "name": "flipkart-price-tracker",
+  "version": "1.0.0",
+  "description": "Serverless Flipkart price tracker using GitHub Actions, Playwright, and Gmail",
+  "main": "src/index.js",
+  "scripts": {
+    "check": "node --loader ts-node/esm src/index.ts",
+    "check:js": "node src/index.js",
+    "build": "tsc",
+    "test:email": "node --loader ts-node/esm src/notify.ts --test",
+    "test:scrape": "node --loader ts-node/esm src/scraper.ts --test"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.14",
+    "playwright": "^1.45.0"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.15",
+    "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

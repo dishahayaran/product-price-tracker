@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.env.local
+.env
+*.env
+
+# Playwright
+/playwright-report/
+/test-results/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
