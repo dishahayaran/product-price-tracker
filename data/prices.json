@@ -1,14 +1,14 @@
 {
   "_comment": "This file is auto-updated by the GitHub Actions workflow. Do not edit manually.",
-  "lastUpdated": "2026-07-07T17:33:04.754Z",
+  "lastUpdated": "2026-07-08T06:10:55.361Z",
   "prices": {
     "iphone-15-128gb": {
       "productId": "iphone-15-128gb",
       "productName": "Apple iPhone 15 (Black, 128 GB)",
-      "currentPrice": 109999,
-      "previousPrice": 47999,
+      "currentPrice": 49999,
+      "previousPrice": 109999,
       "lowestPrice": 29999,
-      "lastChecked": "2026-07-07T17:33:04.753Z",
+      "lastChecked": "2026-07-08T06:10:53.416Z",
       "lastError": null,
       "lastErrorMessage": null,
       "consecutiveFailures": 0
