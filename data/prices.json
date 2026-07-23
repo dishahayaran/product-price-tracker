@@ -1,6 +1,6 @@
 {
   "_comment": "This file is auto-updated by the GitHub Actions workflow. Do not edit manually.",
-  "lastUpdated": "2026-07-23T06:14:22.351Z",
+  "lastUpdated": "2026-07-23T17:01:41.669Z",
   "prices": {
     "iphone-15-128gb": {
       "productId": "iphone-15-128gb",
@@ -8,7 +8,7 @@
       "currentPrice": 58900,
       "previousPrice": 58900,
       "lowestPrice": 29999,
-      "lastChecked": "2026-07-23T06:14:22.351Z",
+      "lastChecked": "2026-07-23T17:01:41.669Z",
       "lastError": null,
       "lastErrorMessage": null,
       "consecutiveFailures": 0
