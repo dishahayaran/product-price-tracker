@@ -1,6 +1,6 @@
 {
   "_comment": "This file is auto-updated by the GitHub Actions workflow. Do not edit manually.",
-  "lastUpdated": "2026-11-26T23:56:38.939Z",
+  "lastUpdated": "2026-11-27T12:51:42.329Z",
   "prices": {
     "iphone-15-128gb": {
       "productId": "iphone-15-128gb",
@@ -9,9 +9,9 @@
       "previousPrice": 59900,
       "lowestPrice": 9999,
       "lastChecked": "2026-11-26T23:56:38.938Z",
-      "lastError": null,
-      "lastErrorMessage": null,
-      "consecutiveFailures": 0
+      "lastError": "2026-11-27T12:51:42.329Z",
+      "lastErrorMessage": "Could not find a price on the page. The page layout may have changed.",
+      "consecutiveFailures": 1
     }
   }
 }
